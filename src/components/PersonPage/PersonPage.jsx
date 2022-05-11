@@ -46,7 +46,7 @@ const PersonPage = () => {
             <div style={{ backgroundColor: 'white', width: '100%', margin: 'auto'  }}>
                 {!services || !orders || !user ? <div style={{ width: '100%', height: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loader /></div>
                     :
-                    <div style={{ width: '1140px', margin: 'auto'  }}>
+                    <div style={{ width: '960px', margin: 'auto'  }}>
                         {go ? '' : <ServiceCategory />}
                         {go ? <OrderCategory /> : ''}
                     </div>

@@ -4,10 +4,11 @@
 
 .wrapper {
   display: flex;
-    width: 960px;
+    width: 100%;
     margin: auto;
-    justify-content: space-between;
+    justify-content: right;
     margin-bottom: 50px;
+    justify-content: right;
 }
 
 .empthy {
@@ -16,11 +17,9 @@
 }
 
 .servises {
-  width: 100%;
-  margin: auto;
+  width: 795px;
   background-color: white;
-  margin: auto;
-  padding: 15px 20px 0;
+  padding: 15px 0 0 0;
   border-radius: 8px;
 }
 
@@ -74,7 +73,7 @@
   display: flex;  
   margin: auto;
   justify-content: space-between;
-  padding: 0px 40px;
+  padding: 0px 10px;
 }
 
 .addServise h3 {
@@ -105,11 +104,11 @@
 .ServisesMap {
   width: 100%;
   margin: auto;
-  padding: 15px 20px 0;
+  padding: 15px 0 0;
 }
 
 .cart {
-  width: 750px;
+  width: 100%;
   padding: 25px 0;
   background-color: white;
   border-bottom: 1px solid #4E79AA ;

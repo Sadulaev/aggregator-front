@@ -49,7 +49,6 @@ const OrderCategory = () => {
     return (
 
         <div className={styles.wrapper}>
-              <div className={styles.empthy}></div>
               <div className={styles.content}><div className={styles.servises}>
             <div className={styles.addServise}>
                 <div style={{ display: 'flex', justyfyContent: 'space-between', alignItems: 'center' }}>

@@ -46,97 +46,92 @@ const ServiceCategory = () => {
   return (
 
     <div className={styles.wrapper}>
-      <div className={styles.empthy}></div>
+      <div className={styles.servises}>
+        <div className={styles.addServise}>
+          <div style={{ display: 'flex', justyfyContent: 'space-between', alignItems: 'center' }}>
+            <div onClick={handleReload} className={styles.reloadBtn}></div>
+            <h3>Список активных услуг</h3>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <button className={styles.addBtn} onClick={() => handleShowAdd()}>
+              +Добавить услугу
+            </button>
+            <div onClick={handleTime} className={styles.clock} style={{ cursor: 'pointer', fontSize: '30px' }}>🕐</div>
+          </div>
 
-      <div className={styles.content}>
-    <div className={styles.servises}>
-      <div className={styles.addServise}>
-        <div style={{ display: 'flex', justyfyContent: 'space-between', alignItems: 'center' }}>
-          <div onClick={handleReload} className={styles.reloadBtn}></div>
-          <h3>Список активных услуг</h3>
+
+          {showAdd && (
+            <ServiceAdd showAdd={showAdd} handleShowAdd={handleShowAdd} />
+          )}
+
         </div>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems: 'center'}}>
-          <button className={styles.addBtn} onClick={() => handleShowAdd()}>
-            +Добавить услугу
-          </button>
-          <div onClick={handleTime} className={styles.clock} style={{ cursor: 'pointer', fontSize: '30px' }}>🕐</div>
-        </div>
+        <div className={styles.ServisesMap}>
+          <div
+            style={{ fontSize: "24px", textAlign: "center" }}
+          >
+            {services.length > 0 ? "" : "Вы пока не разместили ни одну услугу"}
+          </div>
+          {services.map((item) => {
 
-
-        {showAdd && (
-          <ServiceAdd showAdd={showAdd} handleShowAdd={handleShowAdd} />
-        )}
-
-      </div>
-      <div className={styles.ServisesMap}>
-        <div
-          style={{ fontSize: "24px", textAlign: "center" }}
-        >
-          {services.length > 0 ? "" : "Вы пока не разместили ни одну услугу"}
-        </div>
-        {services.map((item) => {
-          
-          return (
-            <div className={styles.cart}>
-              <div className={styles.name}>
-                <h2>{item.serviceName}</h2>
-                <h5 className={styles.time}>
-                  {time ? moment(item.time).format('Y-MMM-DD HH:MM') : moment(item.time).fromNow()}
-                </h5>
-              </div>
-              <div className={styles.description}>
-                <h4>{item.description}</h4>
-              </div>
-              <div className={styles.imgs}>3 фото</div>
-              <div className={styles.money}>
-                <h5>Бюджет: {item.price}р</h5>
-                <h5>Регион: {user ? user.city : "Загрузка..."}</h5>
-              </div>
-              <div
-                style={{ width: "80%", margin: "auto", textAlign: "center" }}
-              >
-                <button
-                  className={`${styles.editBtn} ${styles.button}`}
-                  onClick={() => handleShowEdit(item)}
-                  disabled={showEdit || showRemove}>
-                  <span>Редактировать</span>
-                </button>
-                {showEdit ? (
-                  <EditModal
-                    showEdit={showEdit}
-                    handleShowEdit={handleShowEdit}
-                    item={currentItem}
-                  />
-                ) : (
-                  ""
-                )}
-
-                <button
-                  className={`${styles.removeBtn} ${styles.button}`}
-                  onClick={() => handleShowRemove(item)}
-                  disabled={showEdit || showRemove}
+            return (
+              <div className={styles.cart}>
+                <div className={styles.name}>
+                  <h2>{item.serviceName}</h2>
+                  <h5 className={styles.time}>
+                    {time ? moment(item.time).format('Y-MMM-DD HH:MM') : moment(item.time).fromNow()}
+                  </h5>
+                </div>
+                <div className={styles.description}>
+                  <h4>{item.description}</h4>
+                </div>
+                <div className={styles.imgs}>3 фото</div>
+                <div className={styles.money}>
+                  <h5>Бюджет: {item.price}р</h5>
+                  <h5>Регион: {user ? user.city : "Загрузка..."}</h5>
+                </div>
+                <div
+                  style={{ width: "80%", margin: "auto", textAlign: "center" }}
                 >
-                  <span>Удалить</span>
-                </button>
-                {showRemove ? (
-                  <RemoveModal
-                    showRemove={showRemove}
-                    handleShowRemove={handleShowRemove}
-                    item={currentItem}
-                  />
-                ) : (
-                  ""
-                )}
+                  <button
+                    className={`${styles.editBtn} ${styles.button}`}
+                    onClick={() => handleShowEdit(item)}
+                    disabled={showEdit || showRemove}>
+                    <span>Редактировать</span>
+                  </button>
+                  {showEdit ? (
+                    <EditModal
+                      showEdit={showEdit}
+                      handleShowEdit={handleShowEdit}
+                      item={currentItem}
+                    />
+                  ) : (
+                    ""
+                  )}
+
+                  <button
+                    className={`${styles.removeBtn} ${styles.button}`}
+                    onClick={() => handleShowRemove(item)}
+                    disabled={showEdit || showRemove}
+                  >
+                    <span>Удалить</span>
+                  </button>
+                  {showRemove ? (
+                    <RemoveModal
+                      showRemove={showRemove}
+                      handleShowRemove={handleShowRemove}
+                      item={currentItem}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
 
-      </div>
-    </div>
-    
   );
 };
 

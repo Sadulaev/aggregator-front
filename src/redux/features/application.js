@@ -28,7 +28,7 @@ export const application = (state = initialState, action) => {
                 signingIn: false,
                 signingUp: false,
                 error: null,
-                token: action.payload
+                token: action.payload.token
             };
             case "application/signup/pending": 
             return {
@@ -54,6 +54,12 @@ export const application = (state = initialState, action) => {
                 error: null,
                 isSucceed: true
             };
+            // Удаление токена 30.05.2022 20:07
+            case "application/token":
+                return {
+                    ...state,
+                    token: localStorage.getItem("token")
+                }
         default:
             return state;
     }

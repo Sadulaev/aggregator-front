@@ -29,8 +29,8 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Navigate to="/home" />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/signin" element={<SignIn />} />
+                    {/* <Route path="/signup" element={<SignUp />} />
+                    <Route path="/signin" element={<SignIn />} /> */}
                     <Route path="/oneCard/:id" element={<><Header/> <div className={style.wrapper}><OneCart/> <SidebarBlock/></div><Footer/></>} />
                     <Route path="/home" element={<><Header /><MainPage /> <Footer /></>} />
                     <Route path="/search" element={<><Header /><SearchPage  /><Footer /></>} />

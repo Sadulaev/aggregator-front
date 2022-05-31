@@ -34,8 +34,8 @@ const SignIn = () => {
     const handleSignIn = (e, login, password) => {
         e.preventDefault();
         dispatch(signIn(login, password));
-        console.log(error, signingIn);
-        if (!error && token) {
+        console.log(token);
+        if (!error) {
             navigate("/home");
         }
     };
@@ -82,7 +82,7 @@ const SignIn = () => {
                         )) ||
                             (signingIn && <div>Идет авторизация...</div>)}
                         <button
-                            // onClick={() => handleSignIn(login, password)}
+                            onClick={() => handleSignIn(login, password)}
                             type="submit"
                             disabled={signingIn}
                         >

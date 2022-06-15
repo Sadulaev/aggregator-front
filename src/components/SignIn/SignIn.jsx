@@ -25,18 +25,16 @@ const SignIn = () => {
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
     };
-    // console.log(Boolean(localStorage.getItem('token')));
     useEffect(() => {
         if (localStorage.getItem('token')) {
             navigate("/home");
         }
     }, [token, navigate]);
-    const handleSignIn = (e, login, password) => {
-        e.preventDefault();
+    const handleSignIn = (login, password) => {
+        // e.preventDefault();
         dispatch(signIn(login, password));
-        console.log(error, signingIn);
-        if (!error && token) {
-            navigate("/home");
+        if(!error) {
+            navigate("/home")
         }
     };
 
@@ -68,6 +66,7 @@ const SignIn = () => {
                     <div className={style.inputContainer}>
                         <div className={style.label}>Пароль</div>
                         <input
+                            autoComplete="off"
                             type="password"
                             value={password}
                             onChange={(e) => handleChangePassword(e)}
@@ -82,7 +81,7 @@ const SignIn = () => {
                         )) ||
                             (signingIn && <div>Идет авторизация...</div>)}
                         <button
-                            // onClick={() => handleSignIn(login, password)}
+                            onClick={() => handleSignIn(login, password)}
                             type="submit"
                             disabled={signingIn}
                         >

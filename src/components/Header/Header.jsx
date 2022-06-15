@@ -21,6 +21,7 @@ const Header = () => {
 
   const exitOutOfPersonPage = () => {
     localStorage.removeItem('token');
+    dispatch({type: "application/token"})
     navigate("/home")
   }
   

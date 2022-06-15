@@ -60,6 +60,12 @@ export const application = (state = initialState, action) => {
                     ...state,
                     token: localStorage.getItem("token")
                 }
+            // Очистка isSucceed для возможности повторной регистрации
+            case "application/clearSucceed":
+                return {
+                    ...state,
+                    isSucceed: false
+                }
         default:
             return state;
     }

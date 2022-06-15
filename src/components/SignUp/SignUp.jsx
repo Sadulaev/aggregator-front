@@ -43,7 +43,6 @@ const SignUp = () => {
 
     const handleChangeRepeat = (e, password) => {
         setRepeat(e.target.value);
-        console.log(repeat)
         if (password !== e.target.value) {
             setPasswordError("Пароли не совпадают");
         } else {
@@ -96,14 +95,12 @@ const SignUp = () => {
         repeat,
         email
     ) => {
-        console.log(login, executor, password, phone, city, repeat, email);
         if (!login || !executor || !password || !phone) {
             setErrorMessage("Не заполнены обязательные поля");
         } else if (password !== repeat) {
             setPasswordError("Пароли не совпадают");
         } else {
             dispatch(signUp(login, executor, password, phone, city, email));
-            console.log(error);
         }
     };
 
@@ -111,33 +108,24 @@ const SignUp = () => {
         if (isSucceed) {
             setTimeout(() => {
                 navigate("/signin");
+                dispatch({type: "application/clearSucceed"})
             }, 2000);
         }
-    }, [isSucceed, navigate]);
+    }, [isSucceed, navigate, dispatch]);
 
     useEffect(() => {
         if (signingUp || errorEmail || errorMessage) {
             setBtnDisabled(true);
-            console.log(
-                signingUp,
-                Boolean(errorEmail),
-                Boolean(errorMessage)
-            );
         } else {
             setBtnDisabled(false);
             setErrorMessage("")
-            console.log(
-                signingUp,
-                Boolean(errorEmail),
-                Boolean(errorMessage)
-            );
         }
     }, [signingUp, errorMessage, errorEmail]);
 
     return (
         <div>
             <div className={style.signupHeader}>
-                
+
                 <div className={style.leftBlock}>
                     {" "}
                     <Link to="/home"> <img src={logoHome} alt="home" />Главная</Link>
@@ -152,111 +140,118 @@ const SignUp = () => {
             <div className={style.signUpContainer}>
                 <h3>Регистрация</h3>
                 <div className={style.wrapper}>
-                     <div className={style.left}>
-                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Имя исполнителя</div>
-                                                <input
-                                                    value={executor}
-                                                    onChange={(e) => handleChangeExecutor(e)}
-                                                />
-                                            </div>
-                                            {/* <div className={style.error}>{errorEmpty}</div> */}
-                                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Придумайте логин</div>
-                                                <input
-                                                    value={login}
-                                                    onChange={(e) => handleChangeLogin(e)}
-                                                    // onBlur={(e) => handleBlur(e)}
-                                                />
-                                            </div>
-                                            {/* <div className={style.error}>{errorEmpty}</div> */}
-                                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Придумайте пароль</div>
-                                                <input
-                                                    type="password"
-                                                    value={password}
-                                                    onChange={(e) => handleChangePassword(e)}
-                                                    // onBlur={(e) => handleBlur(e)}
-                                                />
-                                            </div>
-                                            {/* <div className={style.error}>{errorEmpty}</div> */}
-                                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Повторите пароль</div>
-                                                <input
-                                                    type="password"
-                                                    value={repeat}
-                                                    onChange={(e) => handleChangeRepeat(e, password)}
-                                                />
-                                                <div className={style.error}>{passwordError}</div>
-                                            </div>
-                     </div>
-                     <div className={style.right}>
-                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Email</div>
-                                                <input
-                                                    value={email}
-                                                    onChange={(e) => handleChangeMail(e)}
-                                                    onBlur={() => handleBlurMail()}
-                                                />
-                                            </div>
-                                            <div className={style.error}>{errorEmail}</div>
-                                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Номер мобильного телефона</div>
-                                                {/* <input
+                    <div className={style.left}>
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Имя исполнителя</div>
+                            <input
+                                value={executor}
+                                onChange={(e) => handleChangeExecutor(e)}
+                            />
+                        </div>
+                        {/* <div className={style.error}>{errorEmpty}</div> */}
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Придумайте логин</div>
+                            <input
+                                value={login}
+                                onChange={(e) => handleChangeLogin(e)}
+                            // onBlur={(e) => handleBlur(e)}
+                            />
+                        </div>
+                        {/* <div className={style.error}>{errorEmpty}</div> */}
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Придумайте пароль</div>
+                            <form>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    autoComplete="off"
+                                    onChange={(e) => handleChangePassword(e)}
+                                // onBlur={(e) => handleBlur(e)}
+                                />
+                            </form>
+                        </div>
+                        {/* <div className={style.error}>{errorEmpty}</div> */}
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Повторите пароль</div>
+                            <form>
+                                <input
+                                    type="password"
+                                    value={repeat}
+                                    autoComplete="off"
+                                    onChange={(e) => handleChangeRepeat(e, password)}
+                                />
+                            </form>
+
+                            <div className={style.error}>{passwordError}</div>
+                        </div>
+                    </div>
+                    <div className={style.right}>
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Email</div>
+                            <input
+                                value={email}
+                                onChange={(e) => handleChangeMail(e)}
+                                onBlur={() => handleBlurMail()}
+                            />
+                        </div>
+                        <div className={style.error}>{errorEmail}</div>
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Номер мобильного телефона</div>
+                            {/* <input
                                                     
                                                 /> */}
-                                                <Cleave options={{phone: true, phoneRegionCode: "RU", initValue: "9", prefix: "+7"}} 
-                                                value={phone}
-                                                onChange={(e) => handleChangePhone(e)}/>
-                                            </div>
-                                            
-                                            <div className={style.inputContainer}>
-                                                <div className={style.label}>Город</div>
-                                                <input value={city} onChange={(e) => handleChangeCity(e)} />
-                                            </div>
-                                            
-                     </div>
+                            <Cleave options={{ phone: true, phoneRegionCode: "RU", initValue: "9", prefix: "+7" }}
+                                value={phone}
+                                onChange={(e) => handleChangePhone(e)} />
+                        </div>
+
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Город</div>
+                            <input value={city} onChange={(e) => handleChangeCity(e)} />
+                        </div>
+
+                    </div>
                 </div>
                 <div>
-                                                <div className={style.error}>{errorMessage}</div>
-                                                {(error && (
-                                                    <div className={style.error}>
-                                                        Ошибка при регистрации
-                                                    </div>
-                                                )) ||
-                                                    (signingUp && (
-                                                        <div className={style.loading}>
-                                                            Идет регистрация...
-                                                        </div>
-                                                    ))}
-                                                {isSucceed && (
-                                                    <div>
-                                                        Вы успешно зарегистрированы! Переадресация на
-                                                        страницу авторизации...
-                                                    </div>
-                                                )}
-                                                <button
-                                                    onClick={() =>
-                                                        handleClickSignUp(
-                                                            login,
-                                                            executor,
-                                                            password,
-                                                            phone,
-                                                            city,
-                                                            repeat,
-                                                            email
-                                                        )
-                                                    }
-                                                    disabled={btnDisabled}
-                                                >
-                                                    Зарегистрироваться
-                                                </button>
-                                            </div>
-               
-                
-               
-                
-                
+                    <div className={style.error}>{errorMessage}</div>
+                    {(error && (
+                        <div className={style.error}>
+                            Ошибка при регистрации
+                        </div>
+                    )) ||
+                        (signingUp && (
+                            <div className={style.loading}>
+                                Идет регистрация...
+                            </div>
+                        ))}
+                    {isSucceed && (
+                        <div>
+                            Вы успешно зарегистрированы! Переадресация на
+                            страницу авторизации...
+                        </div>
+                    )}
+                    <button
+                        onClick={() =>
+                            handleClickSignUp(
+                                login,
+                                executor,
+                                password,
+                                phone,
+                                city,
+                                repeat,
+                                email
+                            )
+                        }
+                        disabled={btnDisabled}
+                    >
+                        Зарегистрироваться
+                    </button>
+                </div>
+
+
+
+
+
             </div>
         </div>
     );

@@ -9,6 +9,7 @@ import Cart from "../Cart/Cart";
 
 const SearchPage = () => {
   const cards = useSelector((state) => state.services.services);
+  const token = useSelector((state) => state.application.token);
 
   const dispatch = useDispatch();
 
@@ -77,8 +78,7 @@ const SearchPage = () => {
 
   return (
     <div className={styles.SearchPage}>
-      <Offer />
-
+      {token ? "" : <Offer />}
       <SearchForm inputText={inputText} setInputText={setInputText} />
       <div className={styles.Wrapper}>
         <div className={styles.carts}>

@@ -111,7 +111,7 @@ export const fetchCarts = () => {
 };
 
 export const fetchExecutor = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch({ type: "executor/fetch/pending" });
     try {
       const response = await fetch("http://localhost:4000/executors", {
@@ -123,7 +123,8 @@ export const fetchExecutor = () => {
       if (json.error) {
         dispatch({ type: "executor/fetch/rejected", payload: json.error });
       } else {
-        dispatch({ type: "executor/fetch/fulfilled", payload: json });
+        dispatch({type: "executor/fetch/fulfilled", payload: json})
+        console.log(json)
       }
     } catch (e) {
       dispatch({ type: "executor/fetch/rejected", error: e.toString() });
@@ -143,7 +144,6 @@ export const fetchExecutorById = (id) => {
       const json = await response.json();
       if (json.error) {
         dispatch({ type: "executorById/fetch/rejected", payload: json.error });
-        console.log(json);
       } else {
         dispatch({ type: "executorById/fetch/fulfilled", payload: json });
       }

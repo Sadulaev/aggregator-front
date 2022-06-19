@@ -8,14 +8,15 @@ import { fetchCarts } from "../../redux/features/services";
 import Cart from "../Cart/Cart";
 
 const SearchPage = () => {
-  const cards = useSelector((state) => state.services.services);
-  const token = useSelector((state) => state.application.token);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCarts());
   }, [dispatch]);
+
+  const cards = useSelector((state) => state.services.services);
+  const token = useSelector((state) => state.application.token);
+  const executors = useSelector(state => state.services.executors)
 
   const textFromMainInput = window.location.href.split("?");
   const textHref = decodeURI(textFromMainInput[textFromMainInput.length - 1]);
@@ -36,8 +37,6 @@ const SearchPage = () => {
   const [priceTo, setPriceTo] = useState("");
   const [sortUp, setSortUp] = useState(false);
   const [sortDown, setSortDown] = useState(false);
-
-  const executors = useSelector(state => state.services.executors)
 
   const filteredCarts = cards.filter((card) => {
     if (
@@ -83,7 +82,7 @@ const SearchPage = () => {
       <div className={styles.Wrapper}>
         <div className={styles.carts}>
           {sortedFilter.map((card) => {
-            return <Cart card={card} key={card._id} executor={executors.find(executor => executor._id === card.executorId)}/>;
+            return <Cart card={card} key={card._id} executor={executors.find(executor => executor._id === card.executorId)} />;
           })}
           {!sortedFilter.length && <div>Ничего не найдено</div>}
         </div>

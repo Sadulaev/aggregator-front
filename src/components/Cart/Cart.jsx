@@ -10,7 +10,15 @@ import { getOneServise } from "../../redux/features/oneServise";
 
 const Cart = ({ card, executor }) => {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function isImg() {
+      const res = await fetch(`http://localhost:4000/${card.serviceImg[0]}`)
+      const result = res.json()
+      console.log(result)
+    }
+  })
   // const [sended, setSended ] = useState(false)
   const [text, setText] = useState(false);
   const [number, setNumber] = useState("");
@@ -81,8 +89,8 @@ const Cart = ({ card, executor }) => {
       </div>
       <div className={style.executor}>
         <div className={style.info}>
-          {console.log(card.serviceImg)}
-          <img className={style.executor_img} src={card.serviceImg[0] ? `http://localhost:4000/${card.serviceImg[0]}` : img} alt="" />
+          {console.log(card.serviceImg[0])}
+          <img className={style.executor_img} src={card.serviceImg[0] ? `http://localhost:4000/${card.serviceImg[0]}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlE4nUebua_jEzgXjEGl53V8scqo4wVf_Q1BiO84rNWnxlMIyuiBRcgzo5ChUMaytkKPk&usqp=CAU"} alt="" />
           <div className={style.number_phone}>
             {/* Данные об исполнителе */}
             <p>{executor ? executor.executor : "Не указан"}</p>

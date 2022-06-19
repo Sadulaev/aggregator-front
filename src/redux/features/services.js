@@ -124,7 +124,6 @@ export const fetchExecutor = () => {
         dispatch({ type: "executor/fetch/rejected", payload: json.error });
       } else {
         dispatch({type: "executor/fetch/fulfilled", payload: json})
-        console.log(json)
       }
     } catch (e) {
       dispatch({ type: "executor/fetch/rejected", error: e.toString() });
@@ -158,7 +157,7 @@ export const addService = (name, description, price, category, files) => {
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append('images', files[i]);
-      console.log(files[i]);
+      // console.log(files[i]);
     }
         
         formData.append('serviceName', name);

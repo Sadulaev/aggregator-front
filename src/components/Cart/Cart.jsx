@@ -5,18 +5,20 @@ import img from "./mam.png";
 import { useDispatch } from "react-redux";
 import { fetchExecutor, fetchExecutorById } from "../../redux/features/services";
 import Carousel from "../Carousel/Carousel";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getOneServise } from "../../redux/features/oneServise";
+import { isImg } from "../../redux/features/application";
 
 const Cart = ({ card, executor }) => {
 
   const dispatch = useDispatch();
+  let imgResponce;
 
   useEffect(() => {
-    async function isImg() {
-      const res = await fetch(`http://localhost:4000/${card.serviceImg[0]}`)
-      const result = res.json()
-      console.log(result)
+    return async () => {
+      const res = await fetch(`http://localhost:4000/files/${card.serviceImg[0]}`);
+      await (imgResponce = res.status);
+      console.log(imgResponce)
     }
   })
   // const [sended, setSended ] = useState(false)
@@ -62,11 +64,11 @@ const Cart = ({ card, executor }) => {
 
   return (
     <div className={style.cart}>
-      
+
       <div className={style.name}>
         {/* Название услуги */}
         <Link to={`/oneCard/${card._id}`} onClick={() => handleGetOneCart(card._id)}><p>{card.serviceName}</p></Link>
-        
+
         <p className={style.time}>🕐</p>
       </div>
       <div className={style.discription}>
@@ -90,7 +92,7 @@ const Cart = ({ card, executor }) => {
       <div className={style.executor}>
         <div className={style.info}>
           {console.log(card.serviceImg[0])}
-          <img className={style.executor_img} src={card.serviceImg[0] ? `http://localhost:4000/${card.serviceImg[0]}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlE4nUebua_jEzgXjEGl53V8scqo4wVf_Q1BiO84rNWnxlMIyuiBRcgzo5ChUMaytkKPk&usqp=CAU"} alt="" />
+          <img className={style.executor_img} src={imgResponce === 404 ? `http://localhost:4000/${card.serviceImg[0]}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlE4nUebua_jEzgXjEGl53V8scqo4wVf_Q1BiO84rNWnxlMIyuiBRcgzo5ChUMaytkKPk&usqp=CAU"} alt="" />
           <div className={style.number_phone}>
             {/* Данные об исполнителе */}
             <p>{executor ? executor.executor : "Не указан"}</p>
@@ -134,8 +136,8 @@ const Cart = ({ card, executor }) => {
             </div>
           </div>
         )}
-      </div>  
-      </div>   
+      </div>
+    </div>
   );
 };
 

@@ -20,7 +20,7 @@ const Carousel = ({card}) => {
       };
           
       return (
-              <div>{console.log(card.serviceImg)}
+              <div>
                 <div className={styles.buttonCarusel} onClick={handleOpen}>Фотографии</div>
                 <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                   <Box sx={style} className={styles.boxModal}>
@@ -33,7 +33,6 @@ const Carousel = ({card}) => {
                         </div>
                         <div class="carousel-inner ">
                         <div class="carousel-item active">
-                          {console.log(card.serviceImg)}
                             <img src={`http://localhost:4000/${card.serviceImg[0]}`} className={style.caruselImg} alt="..." />
                         </div>
                         <div class="carousel-item">

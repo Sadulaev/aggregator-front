@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./cart.module.css";
-import img from "./mam.png";
 import { useDispatch } from "react-redux";
-import { fetchExecutor, fetchExecutorById } from "../../redux/features/services";
 import Carousel from "../Carousel/Carousel";
 import { Link } from "react-router-dom";
 import { getOneServise } from "../../redux/features/oneServise";
-import { isImg } from "../../redux/features/application";
 
 const Cart = ({ card, executor }) => {
 
   const dispatch = useDispatch();
-  let imgResponce;
+  let imgResponce = useRef(null);
 
   useEffect(() => {
     return async () => {
       const res = await fetch(`http://localhost:4000/files/${card.serviceImg[0]}`);
-      await (imgResponce = res.status);
-      console.log(imgResponce)
+      await (imgResponce.current = res.status);
     }
   })
-  // const [sended, setSended ] = useState(false)
   const [text, setText] = useState(false);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [sendUser, setSendUser] = useState(false);
-  // console.log(executor);
-  // useEffect(() => {
-  //   dispatch(fetchExecutorById(card.executorId));
-  // }, [dispatch]);
-  // const executor = useSelector((state) => state.services.executor);
 
   const hundleClick = () => {
     setText(!text);
@@ -91,7 +80,6 @@ const Cart = ({ card, executor }) => {
       </div>
       <div className={style.executor}>
         <div className={style.info}>
-          {console.log(card.serviceImg[0])}
           <img className={style.executor_img} src={imgResponce === 404 ? `http://localhost:4000/${card.serviceImg[0]}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlE4nUebua_jEzgXjEGl53V8scqo4wVf_Q1BiO84rNWnxlMIyuiBRcgzo5ChUMaytkKPk&usqp=CAU"} alt="" />
           <div className={style.number_phone}>
             {/* Данные об исполнителе */}
@@ -142,29 +130,3 @@ const Cart = ({ card, executor }) => {
 };
 
 export default Cart;
-
-
-{/* <div className={styles.modalContent}>
-<div className={styles.modalHeader}>
-    <h3 className={styles.modalTitle}>Заказ</h3>
-    <a onClick={handleShowEdit} className={styles.close}>×</a>
-</div>
-<div className={styles.modalBody}>
-    <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center', fontSize:'16px', padding: '10px 5px'}}>
-        <div style={{width: '35%'}}>Название</div>
-        <div style={{width: '65%'}}><input value={name} onChange={hundleName} style={{width:'100%'}} placeholder='Необходимо ввести имя' /></div>
-    </div>
-    <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center', fontSize:'16px', padding: '10px 5px'}}>
-        <div style={{width: '35%', alignSelf:'self-start'}}>Описание</div>
-        <div style={{width: '65%'}}><textarea value={description} onChange={handleDescription} style={{width:'100%'}} placeholder='Необходимо ввести номер' /></div>
-    </div>
-    <div style={{fontSize:'18px', color:'red', textAlign:'center', margin: '10px 0'}}>
-        {stop ? 'Пожалуйста, обновите данные перед отправкой' : ''}
-        {error ? `Ошибка: ${error}` : ''}
-    </div>
-    <div style={{textAlign: 'center', margin:'15px 0'}}>
-            <button onClick={handleEdit} className={`${styles.editBtn} ${styles.button}`}><span>Подтвердить</span></button>
-            <button onClick={handleShowEdit} className={`${styles.removeBtn} ${styles.button}`} ><span>Отменить</span></button>
-    </div>
-</div>
-</div> */}
